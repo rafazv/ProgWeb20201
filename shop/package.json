@@ -1,0 +1,26 @@
+{
+  "name": "ProgWeb20201",
+  "version": "1.0.0",
+  "description": "ProgWeb20201",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafazv/ProgWeb20201.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafazv/ProgWeb20201/issues"
+  },
+  "homepage": "https://github.com/rafazv/ProgWeb20201#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12",
+    "uuidv4": "^6.2.12"
+  }
+}
