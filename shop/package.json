@@ -21,7 +21,10 @@
   "homepage": "https://github.com/rafazv/ProgWeb20201#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "mysql2": "^2.3.0",
     "nodemon": "^2.0.12",
+    "sequelize": "^6.6.5",
+    "sequelize-cli": "^6.2.0",
     "swagger-autogen": "^2.11.2",
     "swagger-ui-express": "^4.1.6",
     "uuidv4": "^6.2.12"
