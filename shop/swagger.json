@@ -1,0 +1,269 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Shop API",
+    "version": "0.0.0",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "User",
+      "description": "Endpoint"
+    },
+    {
+      "name": "Product",
+      "description": "Endpoint"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": ["User"],
+        "description": "List users",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User's list"
+          }
+        }
+      },
+      "post": {
+        "tags": ["User"],
+        "description": "Add user",
+        "parameters": [
+          {
+            "in": "body",
+            "description": "User's info",
+            "required": true,
+            "type": "object",
+            "schema": { "$ref": "#/definitions/User"}
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "users/{id}": {
+      "get": {
+        "tags": ["User"],
+        "description": "Find user by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["User"],
+        "description": "Update user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User"],
+        "description": "Delete user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": ["Product"],
+        "description": "List products",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Product's list"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Product"],
+        "description": "Add product",
+        "parameters": [
+          {
+            "in": "body",
+            "description": "Product's info",
+            "required": true,
+            "type": "object",
+            "schema": { "$ref": "#/definitions/Product"}
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "products/{id}": {
+      "get": {
+        "tags": ["Product"],
+        "description": "Find product by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Product"],
+        "description": "Update product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product updated"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Product"],
+        "description": "Delete product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product deleted"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Jhon Doe"
+        },
+        "email": {
+          "type": "string",
+          "example": "jhon.doe@email.com"
+        }
+      },
+      "required": [
+        "name",
+        "email"
+      ]
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Soda"
+        },
+        "price": {
+          "type": "number",
+          "example": 2
+        }
+      },
+      "required": [
+        "name",
+        "price"
+      ]
+    }
+  }
+}
