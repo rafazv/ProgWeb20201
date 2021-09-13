@@ -14,6 +14,10 @@ const doc = {
         {
             'name': 'User',
             'description': 'Endpoints'
+        },
+        {
+            'name': 'Product',
+            'description': 'Endpoints'
         }
     ],
     definitions: {
