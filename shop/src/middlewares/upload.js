@@ -1,7 +1,6 @@
 const multer = require('multer');
 
 const imageFilter = function (req, file, cb) {
-    console.log(file);
     // Accept images only
     if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
         req.fileValidationError = 'Apenas arquivos de imagens são permitidos!';
@@ -17,17 +16,16 @@ const limits = {
     files: 1,
 };
 
-const storage = multer.diskStorage({
-    filename: function (req, file, cb) {
-        let name = file.originalname; // devo salvar na vdd com o nome do id
-        cb(null, name);
+const diskStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './public/uploads');
     },
-    destination: function (req, file, cb) {
-        let path = './public/uploads';
-        cb(null, path);
-    }
+
+    filename: (req, file, cb) => {
+        cb(null, `${req.params.id}-${file.originalname}`);
+    },
 });
 
-const upload = multer({ storage, limits, fileFilter: imageFilter }).single('file');
+const upload = multer({ storage: diskStorage, limits, fileFilter: imageFilter }).single('file');
 
-module.exports = { upload };
+module.exports = upload;
