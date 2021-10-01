@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const { Usuario, TipoUsuario } = require('../models/index');
 
 const index = async (req, res) => {
@@ -11,8 +12,12 @@ const index = async (req, res) => {
 }
 const create = async (req, res) => {
     try {
-        await Usuario.create(req.body);
-        res.status(200).json({ message: 'Usuario criado!' });
+        bcrypt.genSalt(parseInt(process.env.BCRYPT_ROUNDS), (err, salt) => {
+            bcrypt.hash(req.body.senha, salt, async (err, hash) => {
+                await Usuario.create({ ...req.body, senha: hash });
+                res.status(200).json({ message: 'Usuario criado!' });
+            });
+        });
 
     } catch (err) {
         res.status(500).json(err);
