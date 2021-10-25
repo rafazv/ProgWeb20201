@@ -1,5 +1,6 @@
 const express = require('express');
 const routes = require('./routes');
+const cors = require('cors');
 
 // const usersRouter = require('../src/routes/users');
 // const productsRouter = require('../src/routes/products');
@@ -9,9 +10,9 @@ const swaggerFile = require('../swagger.json');
 
 const { uuid } = require('uuidv4');
 const session = require('express-session');
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 require('dotenv').config();
-
 const PORT = process.env.NODE_DOCKER_PORT;
 
 app.use(express.json());

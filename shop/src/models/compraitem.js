@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.Compra);
-      this.hasOne(models.Produto);
+      this.belongsTo(models.Produto);
     }
   };
   CompraItem.init({
