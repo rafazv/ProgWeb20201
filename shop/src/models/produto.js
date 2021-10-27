@@ -25,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     preco: DataTypes.DECIMAL,
-    estoque: DataTypes.INTEGER
+    estoque: DataTypes.INTEGER,
+    descricao: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Produto',

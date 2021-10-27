@@ -17,6 +17,9 @@ module.exports = {
       estoque: {
         type: Sequelize.INTEGER
       },
+      descricao: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
