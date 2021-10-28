@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { useParams, useHistory } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { useParams, useHistory } from "react-router-dom";
 
 function Produto() {
 
@@ -12,17 +12,28 @@ function Produto() {
         .then(response => response.json())
         .then(json => setProduto(json))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [id]);
 
-    const handleClick = () => history.goBack(-1);
+    const handleEdit = () => history.push(`/produtos/${id}/edit`);
+    const handleDelete = () => {
+        fetch(`http://localhost:3020/produtos/${id}`, { credentials: 'include', method: 'DELETE' })
+        .then(response => response.json())
+        .then(json => history.push('/'))
+    };
 
     return (
         <div>
-            <h3>{produto.nome} 
-                <button className="btn bnt-small btn-primary mx-2" onClick={handleClick}>
-                    Voltar
-                </button>
-            </h3>
+            <div className="clearfix">
+                <h3 className="float-start">{produto.nome}</h3>
+                <div className="float-end">
+                    <button className="btn btn-sm btn-primary mx-2" onClick={handleEdit}>
+                        Editar
+                    </button>
+                    <button className="btn btn-sm btn-primary mx-2" onClick={handleDelete}>
+                        Deletar
+                    </button>
+                </div>
+            </div>
             <p>{produto.descricao}</p>
         </div>
     )

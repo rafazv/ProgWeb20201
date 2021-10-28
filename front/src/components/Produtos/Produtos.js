@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 function Produtos () {
     
     const [produtos, setProdutos] = useState([]);
     const [searchString, setSearchString] = useState('');
     const [searchResult, setSearchResult] = useState([]);
+    const history = useHistory();
 
     useEffect(() => {
         fetch('http://localhost:3020/produtos', { credentials: 'include' })
@@ -19,9 +20,21 @@ function Produtos () {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString]);
 
+    const handleClick = () => {
+        history.push('/produtos/add');
+    }
+
     return (
         <div>
-            <h3>Listagem de Produtos</h3>
+            <div className="clearfix">
+                <h3 className="float-start">Listagem de Produtos</h3>
+                <div className="float-end">
+                    <button 
+                        className="btn btn-primary btn-sm"
+                        onClick={handleClick}
+                    >+</button>
+                </div>
+            </div>
             <input 
                 type="text"
                 className="form-control mb-3" 
