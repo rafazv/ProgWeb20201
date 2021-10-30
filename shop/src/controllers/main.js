@@ -25,11 +25,11 @@ const login = async (req, res) => {
                     req.session.userId = usuario.id;
                     res.status(200).json({ message: 'Usuario logado!' });
                 } else {
-                    res.status(401).json({ message: 'Senha não confere!' });
+                    res.status(401).json({ message: 'Email e/ou senha inválidos' });
                 }
             });
         } else {
-            res.status(401).json({ message: 'Email inválido!' });
+            res.status(401).json({ message: 'Email e/ou senha inválidos' });
         }
 
     } catch (err) {

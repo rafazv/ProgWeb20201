@@ -4,7 +4,8 @@ import {
   Produto,
   Sobre,
   AddProduto,
-  EditProduto
+  EditProduto,
+  Login
 } from "./components";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ function App() {
             <Route path='/produtos/:id' exact component={Produto} />
             <Route path='/produtos/:id/edit' exact component={EditProduto} />
             <Route path='/sobre' component={Sobre} />
+            <Route path='/login' component={Login} />
           </Switch>
         </div>
       </div>
