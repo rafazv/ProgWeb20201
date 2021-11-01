@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from "../../redux/slicer/userSlicer";
 
 function Login(props) {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [error, setError] = useState(false);
+
+    const dispatch = useDispatch();
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -24,6 +28,7 @@ function Login(props) {
         })
         .then(json => {
             console.log(json)
+            dispatch(login(json));
         })
     }
 
