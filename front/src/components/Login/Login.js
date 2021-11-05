@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from "../../redux/slicer/userSlicer";
+import { useHistory } from "react-router-dom";
 
 function Login(props) {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [error, setError] = useState(false);
+    const history = useHistory();
 
     const dispatch = useDispatch();
 
@@ -27,8 +29,9 @@ function Login(props) {
             return res.json();
         })
         .then(json => {
-            console.log(json)
+            console.log(json);
             dispatch(login(json));
+            history.push('/');
         })
     }
 
@@ -37,7 +40,7 @@ function Login(props) {
             <h3>Login</h3>
             <form>
                 <label htmlFor="email">Email</label>
-                <input type="text" id="email" className="form-control mb-3" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                <input autoFocus type="text" id="email" className="form-control mb-3" value={email} onChange={(e) => setEmail(e.target.value)}></input>
 
                 <label htmlFor="senha">Senha</label>
                 <input type="password" id="senha" className="form-control" value={senha} onChange={(e) => setSenha(e.target.value)}></input>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 function Produtos () {
     
@@ -7,6 +8,7 @@ function Produtos () {
     const [searchString, setSearchString] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const history = useHistory();
+    const user = useSelector(state => state.user);
 
     useEffect(() => {
         fetch('http://localhost:3020/produtos', { credentials: 'include' })
@@ -28,12 +30,12 @@ function Produtos () {
         <div>
             <div className="clearfix">
                 <h3 className="float-start">Listagem de Produtos</h3>
-                <div className="float-end">
+                {user.tipoUsuario === 'empregado' && <div className="float-end">
                     <button 
                         className="btn btn-primary btn-sm"
                         onClick={handleClick}
                     >+</button>
-                </div>
+                </div>}
             </div>
             <input 
                 type="text"

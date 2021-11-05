@@ -16,7 +16,7 @@ const userSlice = createSlice({
                 email: action.payload.email,
                 nome: action.payload.nome,
                 logado: true,
-                tipoUsuario: action.payload.tipoUsuarioId === 2 ? 'cliente' : 'colaborador'
+                tipoUsuario: action.payload.tipoUsuarioId === 2 ? 'cliente' : 'empregado'
             }
         },
         logout: state => initialState

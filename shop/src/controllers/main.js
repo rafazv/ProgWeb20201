@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const { Usuario } = require('../models');
+const { Usuario, TipoUsuario } = require('../models');
 
 const signup = async (req, res) => {
     try {
@@ -17,12 +17,13 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const usuario = await Usuario.findOne({ where: { email: req.body.email } });
+        const usuario = await Usuario.findOne({ where: { email: req.body.email }, include: TipoUsuario });
 
         if(usuario) {
             bcrypt.compare(req.body.senha, usuario.senha, (err, ok) => {
                 if(ok) {
                     req.session.userId = usuario.id;
+                    req.session.tipoUsuario = usuario.TipoUsuario.rotulo;
                     res.status(200).json({ message: 'Usuario logado!' });
                 } else {
                     res.status(401).json({ message: 'Email e/ou senha inválidos' });

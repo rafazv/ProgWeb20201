@@ -1,10 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Link } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { Link, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/slicer/userSlicer";
 
 const Header = () => {
 
     const user = useSelector(state => state.user);
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const handleLogout = () => {
+        dispatch(logout());
+        history.push('/');
+    }
 
     return(
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -25,7 +33,7 @@ const Header = () => {
                                 <Link className="nav-link" to="/login">Login</Link>
                             </li>}
                             {user.logado && <li className="nav-item">
-                                <a className="nav-link" href="#">Logout, {user.nome}</a>
+                                <a onClick={handleLogout} className="nav-link" href="#">Logout</a>
                             </li>}
                         </ul>
                     </div>
