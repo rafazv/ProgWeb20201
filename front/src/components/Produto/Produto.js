@@ -37,7 +37,7 @@ function Produto() {
 
     return (
         <div>
-            <div className="clearfix">
+            <div className="clearfix">                
                 <h3 className="float-start">{produto.nome}</h3>
                 {user.tipoUsuario === 'empregado' && <div className="float-end">
                     <button className="btn btn-sm btn-primary mx-2" onClick={handleEdit}>
@@ -54,6 +54,7 @@ function Produto() {
                     <h2 className="float-start mx-2" style={{marginTop: '-2px'}}>{state.count}</h2>
                 <button onClick={() => dispatch('increment')} className="btn btn-sm btn-primary float-start">+</button>
             </div>
+            <button className="btn btn-sm btn-primary mx-3">Adicionar ao Carrinho</button>
         </div>
     )
 }
