@@ -42,6 +42,7 @@ function Produto() {
     const addCarrinho = () => {
         const product = { ...produto, quantidade: state.count };
         dispatchCompra(comprar(product));
+        history.push('/carrinho');
     }
 
     return (

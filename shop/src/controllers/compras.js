@@ -3,7 +3,7 @@ const { CompraItem, Compra, Produto } = require('../models/index');
 const index = async (req, res) => {
     try {
         const { id } = req.params;
-        const compras = await Compra.findOne({ where: { usuarioId: id } });
+        const compras = await Compra.findAll({ where: { usuarioId: id } });
         if (compras) res.status(200).json(compras);
         else res.status(404).json({ message: 'Usuário não possui compra(s)!' });
 

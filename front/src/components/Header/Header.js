@@ -36,7 +36,7 @@ const Header = () => {
                                 <Link className="nav-link" to="/login">Login</Link>
                             </li>}
                             {user.logado && <li className="nav-item">
-                                <a onClick={handleLogout} className="nav-link" href="#">Logout</a>
+                                <a onClick={handleLogout} className="nav-link" href="#">Logout, {user.nome}</a>
                             </li>}
                         </ul>
                     </div>

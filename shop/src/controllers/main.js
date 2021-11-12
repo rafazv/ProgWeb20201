@@ -24,7 +24,7 @@ const login = async (req, res) => {
                 if(ok) {
                     req.session.userId = usuario.id;
                     req.session.tipoUsuario = usuario.TipoUsuario.rotulo;
-                    res.status(200).json({ message: 'Usuario logado!' });
+                    res.status(200).json({id: usuario.id, nome: usuario.nome, email: usuario.email, tipoUsuarioId: usuario.tipoUsuarioId});
                 } else {
                     res.status(401).json({ message: 'Email e/ou senha inválidos' });
                 }

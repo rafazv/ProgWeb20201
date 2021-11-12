@@ -1,38 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    produtoId: '',
-    nome: '',
-    quantidade: 0,
-    preco: 0
+    carrinho: []
 };
-
-let produtos = [];
 
 const productSlice = createSlice({
     name: 'product',
     initialState,
     reducers: {
         comprar: (state, action) => {
-            return produtos.push({
-                productId: action.payload.id,
-                nome: action.payload.nome,
-                quantidade: action.payload.quantidade,
-                preco: action.payload.preco
-            })
-            // return {
-            //     produtoId: action.payload.id,
-            //     nome: action.payload.nome,
-            //     quantidade: action.payload.quantidade,
-            //     preco: action.payload.preco
-            // }
+            const { payload } = action;
+
+            state.carrinho = [
+                ...state.carrinho,
+                payload
+            ];
         },
-        comprado: (state) => {
-            return {
-                initialState,
-                produtos: []
-            }
-        }
+        comprado: (state) => initialState,
     }
 });
 
