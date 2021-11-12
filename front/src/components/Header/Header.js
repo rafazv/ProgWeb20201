@@ -29,6 +29,9 @@ const Header = () => {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/sobre">Sobre</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/carrinho">Carrinho</Link>
+                            </li>
                             {!user.logado && <li className="nav-item">
                                 <Link className="nav-link" to="/login">Login</Link>
                             </li>}

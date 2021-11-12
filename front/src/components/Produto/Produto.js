@@ -1,6 +1,7 @@
 import { useEffect, useState, useReducer } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { comprar } from "../../redux/slicer/productSlicer";
 
 const reducer = (state, action) => {
     switch (action) {
@@ -13,7 +14,10 @@ const reducer = (state, action) => {
     }
 }
 
+
 function Produto() {
+    
+    const dispatchCompra = useDispatch();
 
     const [produto, setProduto] = useState({});
     const { id } = useParams();
@@ -35,6 +39,11 @@ function Produto() {
         .then(json => history.push('/'))
     };
 
+    const addCarrinho = () => {
+        const product = { ...produto, quantidade: state.count };
+        dispatchCompra(comprar(product));
+    }
+
     return (
         <div>
             <div className="clearfix">                
@@ -52,9 +61,9 @@ function Produto() {
             <div>
                 <button onClick={() => dispatch('decrement')} className="btn btn-sm btn-primary float-start">-</button>
                     <h2 className="float-start mx-2" style={{marginTop: '-2px'}}>{state.count}</h2>
-                <button onClick={() => dispatch('increment')} className="btn btn-sm btn-primary float-start">+</button>
+                <button disabled={state.count > produto.estoque} onClick={() => dispatch('increment')} className="btn btn-sm btn-primary float-start">+</button>
             </div>
-            <button className="btn btn-sm btn-primary mx-3">Adicionar ao Carrinho</button>
+            <button className="btn btn-sm btn-primary mx-3" disabled={state.count === 0} onClick={addCarrinho}>Adicionar ao Carrinho</button>
         </div>
     )
 }

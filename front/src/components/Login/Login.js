@@ -29,7 +29,6 @@ function Login(props) {
             return res.json();
         })
         .then(json => {
-            console.log(json);
             dispatch(login(json));
             history.push('/');
         })
