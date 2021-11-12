@@ -10,7 +10,7 @@ const swaggerFile = require('../swagger.json');
 
 const { uuid } = require('uuidv4');
 const session = require('express-session');
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: 'http://localhost:3021', credentials: true }));
 
 require('dotenv').config();
 const PORT = process.env.NODE_DOCKER_PORT;
