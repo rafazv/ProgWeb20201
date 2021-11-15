@@ -24,6 +24,12 @@ const create = async (req, res) => {
                 produtoId: p,
                 quantidade: quantidadeArr[index]
             }
+            let produto = await Produto.findOne({ where: { id: p } });
+            const estoque = produto.estoque - quantidadeArr[index];
+            produto = { ...produto, estoque };
+            
+            await Produto.update(produto, { where: { id: p } });
+
             const compraItem = await CompraItem.create(compraItemObj);
             res.status(200).json(compraItem);
         });

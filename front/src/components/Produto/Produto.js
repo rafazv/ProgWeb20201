@@ -60,11 +60,17 @@ function Produto() {
             </div>
             <p>{produto.descricao}</p>
             <div>
-                <button onClick={() => dispatch('decrement')} className="btn btn-sm btn-primary float-start">-</button>
-                    <h2 className="float-start mx-2" style={{marginTop: '-2px'}}>{state.count}</h2>
-                <button disabled={state.count > produto.estoque} onClick={() => dispatch('increment')} className="btn btn-sm btn-primary float-start">+</button>
+                {
+                    produto.estoque === 0 ?
+                    <p style={{color: 'red'}}>Sem estoque no momento</p> :
+                    <div>
+                        <button onClick={() => dispatch('decrement')} className="btn btn-sm btn-primary float-start">-</button>
+                            <h2 className="float-start mx-2" style={{marginTop: '-2px'}}>{state.count}</h2>
+                        <button disabled={state.count >= produto.estoque} onClick={() => dispatch('increment')} className="btn btn-sm btn-primary float-start">+</button>
+                        <button className="btn btn-sm btn-primary mx-3" disabled={state.count === 0} onClick={addCarrinho}>Adicionar ao Carrinho</button>
+                    </div>
+                }
             </div>
-            <button className="btn btn-sm btn-primary mx-3" disabled={state.count === 0} onClick={addCarrinho}>Adicionar ao Carrinho</button>
         </div>
     )
 }
