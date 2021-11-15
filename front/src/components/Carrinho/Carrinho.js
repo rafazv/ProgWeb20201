@@ -34,8 +34,7 @@ function Carrinho(props) {
                 history.push('/login');
             }
             else {
-                console.log('Compra efetuada com sucesso!');
-                history.push('/');
+                history.push('/enderecos');
             }
         });
     }
