@@ -9,7 +9,6 @@ function Carrinho(props) {
 
     const history = useHistory();
 
-    const usuarioId = user.id.toString;
     let produtoId = [];
     let quantidade = [];
 
@@ -19,24 +18,28 @@ function Carrinho(props) {
             quantidade.push(p.quantidade.toString());
         });
 
-        const compra = { usuarioId, produtoId, quantidade };
+        if (user.logado) {
+            const compra = { usuarioId: user.id ? user.id.toString() : '', produtoId, quantidade };
         
-        e.preventDefault();
-        fetch(`http://localhost:3020/compras`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(compra)
-        })
-        .then(res => {
-            if (res.status === 401) {
-                console.log('Necessário logar!');
-                history.push('/login');
-            }
-            else {
-                history.push('/enderecos');
-            }
-        });
+            e.preventDefault();
+            fetch(`http://localhost:3020/compras`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(compra)
+            })
+            .then(res => {
+                if (res.status === 401) {
+                    console.log('Necessário logar!');
+                    history.push('/login');
+                }
+                else {
+                    history.push('/enderecos');
+                }
+            });
+        } else {
+            console.log('Necessário logar!');
+        }
     }
 
     return (

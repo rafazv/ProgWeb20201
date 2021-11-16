@@ -24,13 +24,17 @@ function Login(props) {
             body: JSON.stringify(credenciais)
         })
         .then(res => {
-            if (res.status === 401) setError(true);
-            else setError(false);
+            if (res.status === 401) {
+                setError(true);
+            }
+            else {
+                setError(false);
+                history.push('/');
+            }
             return res.json();
         })
         .then(json => {
             dispatch(login(json));
-            history.push('/');
         })
     }
 

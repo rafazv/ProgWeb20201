@@ -8,7 +8,8 @@ import {
   Login,
   Carrinho,
   FormEndereco,
-  Enderecos
+  Enderecos,
+  Signup
 } from "./components";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -26,8 +27,9 @@ function App() {
             <Route path='/sobre' component={Sobre} />
             <Route path='/login' component={Login} />
             <Route path='/carrinho' component={Carrinho} />
-            <Route path='/endereco' component={FormEndereco} />
-            <Route path='/enderecos' component={Enderecos} />
+            <Route path='/endereco' exact component={FormEndereco} />
+            <Route path='/enderecos' exact component={Enderecos} />
+            <Route path='/signup' component={Signup} />
           </Switch>
         </div>
       </div>

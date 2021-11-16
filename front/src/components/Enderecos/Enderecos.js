@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { comprado } from "../../redux/slicer/productSlicer";
 
 function FormEndereco() {
 
@@ -9,6 +10,8 @@ function FormEndereco() {
 
     const user = useSelector(state => state.user);
     const id = Number(user.id);
+
+    const dispatch = useDispatch();
 
     const history = useHistory();
 
@@ -20,6 +23,12 @@ function FormEndereco() {
             .catch(e => console.log(e))
         }
     }, []);
+
+    const selectEndereco = () => {
+        console.log('Compra efetuada!');
+        dispatch(comprado());
+        history.push('/');
+    }
 
     return (
         <div>
@@ -63,7 +72,7 @@ function FormEndereco() {
                                                     <h5 className="card-title">CEP</h5>
                                                     <p className="card-text">{e.cep}</p>
                                                 </li>
-                                                <button className="btn btn-sm btn-primary" onClick={() => { console.log('Compra efetuada!'); history.push('/'); }}>Selecionar esse endereço</button>
+                                                <button className="btn btn-sm btn-primary" onClick={selectEndereco}>Selecionar esse endereço</button>
                                             </div>
                                         );
                                     })

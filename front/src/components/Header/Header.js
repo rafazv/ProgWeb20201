@@ -32,11 +32,14 @@ const Header = () => {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/carrinho">Carrinho</Link>
                             </li>
+                            {((user.logado && user.tipoUsuario === 'empregado') || !user.logado) && <li className="nav-item">
+                                <Link className="nav-link" to="/signup">Sign up</Link>
+                            </li>}
                             {!user.logado && <li className="nav-item">
                                 <Link className="nav-link" to="/login">Login</Link>
                             </li>}
                             {user.logado && <li className="nav-item">
-                                <a onClick={handleLogout} className="nav-link" href="#">Logout, {user.nome}</a>
+                                <a onClick={handleLogout} className="nav-link" href="#">Logout</a>
                             </li>}
                         </ul>
                     </div>

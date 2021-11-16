@@ -12,28 +12,31 @@ function FormEndereco() {
     const [cep, setCep] = useState('');
 
     const user = useSelector(state => state.user);
-    const usuarioId = user.id.toString;
 
     const history = useHistory();
     
     const [isPending, setIsPending] = useState(false);
 
     const handleSubmit = (e) => {
-        const endereco = { usuarioId, logradouro, numero, bairro, cidade, uf, cep };
-        setIsPending(true);
-        
-        e.preventDefault();
-        fetch('http://localhost:3020/enderecos', {
-            method: 'POST',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(endereco)
-        })
-        .then(res => res.json())
-        .then(() => {
-            setIsPending(false);
-            history.push('/enderecos');
-        });
+        if (user.logado) {
+            const endereco = { usuarioId: user.id ? user.id.toString() : '', logradouro, numero, bairro, cidade, uf, cep };
+            setIsPending(true);
+            
+            e.preventDefault();
+            fetch('http://localhost:3020/enderecos', {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(endereco)
+            })
+            .then(res => res.json())
+            .then(() => {
+                setIsPending(false);
+                history.push('/enderecos');
+            });
+        } else {
+            console.log('Necessário logar!');
+        }
     }
 
     return (

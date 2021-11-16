@@ -23,7 +23,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: true, 
     saveUninitialized: true,
-    cookie: { expires: 10000 }
+    cookie: { expires: 86400 }
 }));
 
 app.use(routes);

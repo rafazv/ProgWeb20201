@@ -8,3 +8,4 @@ export { default as FormEndereco } from './FormEndereco/FormEndereco';
 export { default as Enderecos } from './Enderecos/Enderecos';
 export { default as Sobre } from './Sobre/Sobre';
 export { default as Login } from './Login/Login';
+export { default as Signup } from './Signup/Signup';
