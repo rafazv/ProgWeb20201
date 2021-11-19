@@ -1,7 +1,8 @@
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useState, useReducer, useCallback, useMemo } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { comprar } from "../../redux/slicer/productSlicer";
+import { Comentario } from "..";
 
 const reducer = (state, action) => {
     switch (action) {
@@ -24,6 +25,8 @@ function Produto() {
     const history = useHistory();
     const user = useSelector(state => state.user);
     const [state, dispatch] = useReducer(reducer, { count: 0 });
+    const [comentarios, setComentarios] = useState([]);
+    const [inputComentario, setInputComentario] = useState('');
 
     useEffect(() => {
         fetch(`http://localhost:3020/produtos/${id}`, { credentials: 'include' })
@@ -45,6 +48,21 @@ function Produto() {
         history.push('/carrinho');
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        setComentarios([ ...comentarios, { id: comentarios.length, texto: inputComentario, like: false} ]);
+        setInputComentario('');
+    }
+
+    const setLike = useCallback((id) => {
+        setComentarios(comentarios.map(c => c.id === id ? { ...c, like: !c.like } : c))
+    }, [comentarios]);
+
+    const likes = useMemo(() => {
+        return comentarios.filter(c => c.like).length;
+    }, [comentarios]);
+
     return (
         <div>
             <div className="clearfix">                
@@ -63,13 +81,26 @@ function Produto() {
                 {
                     produto.estoque === 0 ?
                     <p style={{color: 'red'}}>Sem estoque no momento</p> :
-                    <div>
+                    <div className="clearfix">
                         <button onClick={() => dispatch('decrement')} className="btn btn-sm btn-primary float-start">-</button>
                             <h2 className="float-start mx-2" style={{marginTop: '-2px'}}>{state.count}</h2>
                         <button disabled={state.count >= produto.estoque} onClick={() => dispatch('increment')} className="btn btn-sm btn-primary float-start">+</button>
                         <button className="btn btn-sm btn-primary mx-3" disabled={state.count === 0} onClick={addCarrinho}>Adicionar ao Carrinho</button>
                     </div>
                 }
+            </div>
+            <div>
+                <h5>Comentários <span className="badge rounded-pill bg-primary">{likes}</span></h5>
+                <form onSubmit={handleSubmit} >
+                    <input 
+                        className="form-control"
+                        value={inputComentario}
+                        onChange={e => setInputComentario(e.target.value)}
+                        type="text" />
+                </form>
+                <ul className="list-group mt-3">
+                    {comentarios.map(c => <Comentario setLike={setLike} key={c.id} comentario={c}/>)}
+                </ul>
             </div>
         </div>
     )
