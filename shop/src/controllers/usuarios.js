@@ -12,12 +12,17 @@ const index = async (req, res) => {
 }
 const create = async (req, res) => {
     try {
-        bcrypt.genSalt(parseInt(process.env.BCRYPT_ROUNDS), (err, salt) => {
-            bcrypt.hash(req.body.senha, salt, async (err, hash) => {
-                await Usuario.create({ ...req.body, senha: hash });
-                res.status(200).json({ message: 'Usuario criado!' });
+        const user = await Usuario.findOne({ where: { email: req.body.email } });
+        if (!user) {
+            bcrypt.genSalt(parseInt(process.env.BCRYPT_ROUNDS), (err, salt) => {
+                bcrypt.hash(req.body.senha, salt, async (err, hash) => {
+                    await Usuario.create({ ...req.body, senha: hash });
+                    res.status(200).json({ message: 'Usuario criado!' });
+                });
             });
-        });
+        } else {
+            res.status(400).json({ message: 'Email já cadastrado!' });
+        }
 
     } catch (err) {
         res.status(500).json(err);

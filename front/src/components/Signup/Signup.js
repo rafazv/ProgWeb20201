@@ -8,6 +8,7 @@ function Signup(props) {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [senhaConfirmacao, setSenhaConfirmacao] = useState('');
+    const [errorEmail, setErrorEmail] = useState(false);
     const [errorSenhaConfirmacao, setErrorSenhaConfirmacao] = useState(false);
     const [errorSenhaTamanho, setErrorSenhaTamanho] = useState(false);
     const history = useHistory();
@@ -19,14 +20,14 @@ function Signup(props) {
 
         if (senha.length < 6 || senhaConfirmacao.length < 6) {
             setErrorSenhaTamanho(true);
-        } 
+        } else if (senha.length >= 6 && senhaConfirmacao.length >= 6) {
+            setErrorSenhaTamanho(false);
+        }
         
         if (senha !== senhaConfirmacao) {
             setErrorSenhaConfirmacao(true);
-        }
-
-        if (email) {
-            setErrorSenhaConfirmacao(true);
+        } else {
+            setErrorSenhaConfirmacao(false);
         }
         
         if (senha.length >= 6 && senhaConfirmacao.length >= 6 && senha === senhaConfirmacao){
@@ -47,10 +48,11 @@ function Signup(props) {
                 body: JSON.stringify(usuario)
             })
             .then(res => {
-                if (res.status === 401) {
-                    console.log('Algo deu errado no cadastro!');
+                if (res.status === 400) {
+                    setErrorEmail(true);
                 }
                 else {
+                    setErrorEmail(false);
                     history.push('/login');
                 }
             });
@@ -67,6 +69,12 @@ function Signup(props) {
 
                 <label htmlFor="email">Email</label>
                 <input type="email" required id="email" className="form-control mb-3" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+
+                { errorEmail ?
+                    <div className="invalid-feedback mb-2" style={{display: 'block'}}>
+                        Email já cadastrado
+                    </div> : <div></div>
+                }
 
                 <label htmlFor="senha">Senha</label>
                 <input type="password" required minLength="6" id="senha" className="form-control mb-3" value={senha} onChange={(e) => setSenha(e.target.value)}></input>
@@ -85,7 +93,6 @@ function Signup(props) {
                         A senha deve ter mais de 6 caracteres
                     </div> : <div></div>
                 }
-
 
                 <button className="btn btn-primary mt-3" disabled={!nome || !email || !senha || !senhaConfirmacao || senha.length < 6 || senhaConfirmacao.length < 6 || senha !== senhaConfirmacao} onClick={handleClick}>Cadastrar</button>
             </form>
