@@ -53,7 +53,8 @@ function Signup(props) {
                 }
                 else {
                     setErrorEmail(false);
-                    history.push('/login');
+                    if (!user.logado) history.push('/login');
+                    else history.push('/');
                 }
             });
         }

@@ -7,6 +7,7 @@ import { comprado } from "../../redux/slicer/productSlicer";
 function FormEndereco() {
 
     const [enderecos, setEnderecos] = useState([]);
+    const [compraEfetuada, setCompraEfetuada] = useState(false);
 
     const user = useSelector(state => state.user);
     const id = Number(user.id);
@@ -25,9 +26,9 @@ function FormEndereco() {
     }, []);
 
     const selectEndereco = () => {
-        console.log('Compra efetuada!');
+        setCompraEfetuada(true);
         dispatch(comprado());
-        history.push('/');
+        setTimeout(() => history.push('/'), 2500);
     }
 
     return (
@@ -72,12 +73,16 @@ function FormEndereco() {
                                                     <h5 className="card-title">CEP</h5>
                                                     <p className="card-text">{e.cep}</p>
                                                 </li>
-                                                <button className="btn btn-sm btn-primary" onClick={selectEndereco}>Selecionar esse endereço</button>
+                                                <button className="btn btn-sm btn-primary" disabled={compraEfetuada} onClick={selectEndereco}>Selecionar esse endereço</button>
                                             </div>
                                         );
                                     })
                                 }
                             </ul>
+                            {
+                                compraEfetuada ?
+                                <h3 className="mt-3">Compra efetuada!</h3> : <div></div>
+                            }
                         </div>
                         :
                         <div>
