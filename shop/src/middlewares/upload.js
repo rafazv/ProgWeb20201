@@ -2,9 +2,9 @@ const multer = require('multer');
 
 const imageFilter = function (req, file, cb) {
     // Accept images only
-    if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG)$/)) {
-        req.fileValidationError = 'Apenas arquivos de imagens são permitidos!';
-        return cb(new Error('Apenas arquivos de imagens são permitidos!'), false);
+    if (!file.originalname.match(/\.(jpg|JPG)$/)) {
+        req.fileValidationError = 'Apenas arquivos jpg são permitidos!';
+        return cb(new Error('Apenas arquivos jpg são permitidos!'), false);
     }
 
     return cb(null, true);
@@ -18,7 +18,7 @@ const limits = {
 
 const diskStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './public/uploads');
+        cb(null, './src/public/uploads');
     },
 
     filename: (req, file, cb) => {

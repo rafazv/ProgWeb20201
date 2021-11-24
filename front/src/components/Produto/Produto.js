@@ -27,17 +27,29 @@ function Produto() {
     const [state, dispatch] = useReducer(reducer, { count: 0 });
     const [comentarios, setComentarios] = useState([]);
     const [inputComentario, setInputComentario] = useState('');
+    const [noImage, setNoImage] = useState(true);
+    const [image, setImage] = useState('');
 
     useEffect(() => {
-        fetch(`http://localhost:3020/produtos/${id}`, { credentials: 'include' })
-        .then(response => response.json())
-        .then(json => setProduto(json))
+        fetch(`${process.env.REACT_APP_API}/produtos/${id}`, { credentials: 'include' })
+            .then(response => response.json())
+            .then(json => setProduto(json))
+
+        fetch(`${process.env.REACT_APP_API}/${id}.jpg`)
+            .then(res => {
+                if (res.status === 404) {
+                    setNoImage(true);
+                } else {
+                    setNoImage(false);
+                    setImage(res.url);
+                }
+            })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     const handleEdit = () => history.push(`/produtos/${id}/edit`);
     const handleDelete = () => {
-        fetch(`http://localhost:3020/produtos/${id}`, { credentials: 'include', method: 'DELETE' })
+        fetch(`${process.env.REACT_APP_API}/produtos/${id}`, { credentials: 'include', method: 'DELETE' })
         .then(response => response.json())
         .then(json => history.push('/'))
     };
@@ -65,7 +77,10 @@ function Produto() {
 
     return (
         <div>
-            <div className="clearfix">                
+            {
+                noImage ? <div></div> : <img src={image} className="mb-3 mt-3" style={{width: '450px', height: 'auto'}} alt="produto" />
+            }
+            <div className="clearfix">
                 <h3 className="float-start">{produto.nome}</h3>
                 {user.tipoUsuario === 'empregado' && <div className="float-end">
                     <button className="btn btn-sm btn-primary mx-2" onClick={handleEdit}>

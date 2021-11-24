@@ -15,6 +15,8 @@ app.use(cors({ origin: 'http://localhost:3021', credentials: true }));
 require('dotenv').config();
 const PORT = process.env.NODE_DOCKER_PORT;
 
+app.use('', express.static(__dirname + '/public/uploads'));
+
 app.use(express.json());
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
