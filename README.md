@@ -45,8 +45,8 @@ Após isso crie um database chamado `store`;
 Entre no container chamado `shop_web_1`:
 
 ```
-docker exec -it shop_web_1 bash npx sequelize db:migrate
-docker exec -it shop_web_1 bash npx sequelize db:seed:all
+docker exec -it shop_web_1 npx sequelize db:migrate
+docker exec -it shop_web_1 npx sequelize db:seed:all
 ```
 
 O primeiro comando rodará as migrações e o segundo as sementes.

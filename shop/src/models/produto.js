@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    preco: DataTypes.DECIMAL,
+    preco: DataTypes.DECIMAL(12,2),
     estoque: DataTypes.INTEGER,
     descricao: DataTypes.STRING
   }, {
