@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
@@ -15,9 +16,9 @@ function Signup(props) {
 
     const user = useSelector(state => state.user);
 
-    const handleClick = (e) => {
-        e.preventDefault();
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+    const validations = () => {
         if (senha.length < 6 || senhaConfirmacao.length < 6) {
             setErrorSenhaTamanho(true);
         } else if (senha.length >= 6 && senhaConfirmacao.length >= 6) {
@@ -29,8 +30,14 @@ function Signup(props) {
         } else {
             setErrorSenhaConfirmacao(false);
         }
+    }
+
+    const handleClick = (e) => {
+        e.preventDefault();
+
+        validations();
         
-        if (senha.length >= 6 && senhaConfirmacao.length >= 6 && senha === senhaConfirmacao){
+        if (senha.length >= 6 && senhaConfirmacao.length >= 6 && senha === senhaConfirmacao && (re.test(email))){
             let tipoUsuarioId;
     
             if (user.logado && user.tipoUsuario === 'empregado') {
@@ -77,6 +84,12 @@ function Signup(props) {
                     </div> : <div></div>
                 }
 
+                { !(re.test(email)) ?
+                    <div className="invalid-feedback mb-2" style={{display: 'block'}}>
+                        Insira um email válido: exemplo@exemplo.com
+                    </div> : <div></div>
+                }
+
                 <label htmlFor="senha">Senha</label>
                 <input type="password" required minLength="6" id="senha" className="form-control mb-3" value={senha} onChange={(e) => setSenha(e.target.value)}></input>
 
@@ -95,7 +108,7 @@ function Signup(props) {
                     </div> : <div></div>
                 }
 
-                <button className="btn btn-primary mt-3" disabled={!nome || !email || !senha || !senhaConfirmacao || senha.length < 6 || senhaConfirmacao.length < 6 || senha !== senhaConfirmacao} onClick={handleClick}>Cadastrar</button>
+                <button className="btn btn-primary mt-3" disabled={!nome || !email || !senha || !senhaConfirmacao || !(re.test(email)) || senha.length < 6 || senhaConfirmacao.length < 6 || senha !== senhaConfirmacao} onClick={handleClick}>Cadastrar</button>
             </form>
         </div>
     );

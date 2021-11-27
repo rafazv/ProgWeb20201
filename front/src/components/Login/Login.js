@@ -54,7 +54,7 @@ function Login(props) {
                     </div> : <div></div>
                 }
 
-                <button className="btn btn-primary mt-3" onClick={handleClick}>Entrar</button>
+                <button className="btn btn-primary mt-3" disabled={!email || !senha} onClick={handleClick}>Entrar</button>
             </form>
         </div>
     );

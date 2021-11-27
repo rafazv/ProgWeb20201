@@ -91,6 +91,7 @@ function Produto() {
                     </button>
                 </div>}
             </div>
+            <h5>R${produto.preco}</h5>
             <p>{produto.descricao}</p>
             <div>
                 {
